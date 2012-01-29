@@ -53,12 +53,12 @@ class LayerAdapter:
             self.geometry_field = self.qs.query.get_meta().get_field(field_name)
         else:
             self.geometry_field = self.qs.query._geo_field()
-    
+
     def show(self,width=400,height=300,filename=None,app=None):
         lyr = self.to_mapnik()
         sty = self.get_default_style()
         return utils.show(lyr,sty,width=width,height=height)
-        
+
     def get_default_style(self):
         # todo - mapnik should be able to report geometry type in the future
         geometry_type = self.geometry_field.geom_type.lower()
@@ -69,10 +69,7 @@ class LayerAdapter:
         if self.name:
             lyr = mapnik.Layer(self.name)
         else:
-            if hasattr(ds,'subquery'):
-                lyr = mapnik.Layer(ds.subquery)            
-            else:
-                lyr = mapnik.Layer('name')            
+            lyr = mapnik.Layer('name')
 
         lyr.datasource = ds
         if self.use_proj4_literal:
@@ -106,7 +103,6 @@ class MemoryLayer(LayerAdapter):
         field_names.remove(self.geometry_field.name)
         for i in self.qs.iterator():
             feature = mapnik.Feature(ids.next())
-            
             # add as wkb
             # TODO - waiting on http://trac.mapnik.org/ticket/698
             #wkb_string = str(getattr(i,self.geometry_field.name).wkb)
