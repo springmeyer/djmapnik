@@ -158,6 +158,6 @@ class PostgisLayer(LayerAdapter):
            from django.contrib.gis.db.backends.util import gqn
         #if qs.query.has_where
         if args:
-           sql = sql % tuple([gqn(i) for i in args])
+           sql = sql % tuple([str(i) if hasattr(i,'ewkb') else gqn(i) for i in args])
         return """(%s) as django_table""" % sql
 
