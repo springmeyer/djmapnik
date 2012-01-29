@@ -1,0 +1,9 @@
+Data for the Geographic Admin Project
+
+For more info see:
+
+http://geodjango.org/docs/tutorial.html#id4
+
+and
+
+http://code.google.com/p/geodjango-basic-apps/wiki/GeographicAdminQuickStart

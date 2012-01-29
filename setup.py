@@ -3,7 +3,7 @@ from distutils.core import setup
 version = '0.1.3'
 app = 'djmapnik'
 description = 'Django hearts Mapnik'
-url = 'http://bitbucket.org/springmeyer/%s/' % app
+url = 'http://github.com/springmeyer/%s/' % app
 readme = file('README.txt','rb').read()
 
 setup(name='%s' % app,

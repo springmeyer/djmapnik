@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Map srs="+init=epsg:4326" background-color="rgba(0,0,0,0)">
+    <Style name="style">
+        <Rule>
+            <PolygonSymbolizer fill="rgb(70,130,180)"/>
+            <LineSymbolizer stroke="rgb(70,130,180)" stroke-width="0.5"/>
+        </Rule>
+    </Style>
+    <Layer name="foo" srs="+init=epsg:4326">
+        <StyleName>style</StyleName>
+        <Datasource>
+            <Parameter name="dbname">geoadmin</Parameter>
+            <Parameter name="extent_from_subquery">0</Parameter>
+            <Parameter name="geometry_field">geometry</Parameter>
+            <Parameter name="host"/>
+            <Parameter name="password"/>
+            <Parameter name="port"/>
+            <Parameter name="srid">4326</Parameter>
+            <Parameter name="table">(SELECT &quot;world_worldborders&quot;.&quot;id&quot;, &quot;world_worldborders&quot;.&quot;name&quot;, &quot;world_worldborders&quot;.&quot;area&quot;, &quot;world_worldborders&quot;.&quot;pop2005&quot;, &quot;world_worldborders&quot;.&quot;fips&quot;, &quot;world_worldborders&quot;.&quot;iso2&quot;, &quot;world_worldborders&quot;.&quot;iso3&quot;, &quot;world_worldborders&quot;.&quot;un&quot;, &quot;world_worldborders&quot;.&quot;region&quot;, &quot;world_worldborders&quot;.&quot;subregion&quot;, &quot;world_worldborders&quot;.&quot;lon&quot;, &quot;world_worldborders&quot;.&quot;lat&quot;, &quot;world_worldborders&quot;.&quot;geometry&quot; FROM &quot;world_worldborders&quot;) as django_table</Parameter>
+            <Parameter name="type">postgis</Parameter>
+            <Parameter name="user"/>
+        </Datasource>
+    </Layer>
+</Map>

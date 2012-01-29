@@ -9,8 +9,7 @@ Requires
 
  * Mapnik (>= 0.7.0)
  * GeoDjango using PostGIS backend
- * MemoryDatasource support if you have Mapnik2 installed
-   - This should work with any database backend
+ * Mapnik (>= 2.1.x) for MemoryDatasource support
 
 
 Usage
@@ -23,5 +22,5 @@ See the examples/geoadmin/README.txt for some usage.
 More info
 ---------
 
-http://bitbucket.org/springmeyer/djmapnik/
+http:/github.com/springmeyer/djmapnik
 
