@@ -29,7 +29,7 @@ def get_base_params(using=None):
 
 
 def qs_to_map(qs,styles=[],srs='+init=epsg:900913',buffer_size=128):
-    m = mapnik.Map(1,1,srs)
+    m = mapnik.Map(256,256,srs)
     if buffer_size:
         m.buffer_size = buffer_size
     m.background = mapnik.Color('transparent')
@@ -96,20 +96,22 @@ class MemoryLayer(LayerAdapter):
 
         import itertools
         ids = itertools.count(0)
-        assert hasattr(mapnik,'MemoryDatasource'), "mapnik.MemoryDatasource requires mapnik2"
+        assert hasattr(mapnik,'MemoryDatasource'), "mapnik.MemoryDatasource requires >= mapnik 2.1"
         ds = mapnik.MemoryDatasource()
         # todo - how to get subset of columns requested from the queryset?
         field_names = self.qs.query.get_meta().get_all_field_names()
         field_names.remove(self.geometry_field.name)
+        if hasattr(mapnik,'Context'):
+            context = mapnik.Context()
+            for fld in field_names:
+                context.push(fld)
         for i in self.qs.iterator():
-            feature = mapnik.Feature(ids.next())
-            # add as wkb
-            # TODO - waiting on http://trac.mapnik.org/ticket/698
-            #wkb_string = str(getattr(i,self.geometry_field.name).wkb)
-            #feature.add_geometry(wkb_string)
-            # add as wkt
-            geom = mapnik.Geometry2d.from_wkt(getattr(i,self.geometry_field.name).wkt)
-            feature.add_geometry(geom)
+            feature = None
+            if hasattr(mapnik,'Context'):
+                feature = mapnik.Feature(context,ids.next())
+            else:
+                feature = mapnik.Feature(ids.next())
+            feature.add_geometries_from_wkb(str(getattr(i,self.geometry_field.name).wkb))
             for fld in field_names:
                 feature[fld] = getattr(i,fld)
             ds.add_feature(feature)
