@@ -13,10 +13,7 @@ from djmapnik.adapter import PostgisLayer
 #from djmapnik import utils
 
 # mapnik
-try:
-    import mapnik2 as mapnik
-except:
-    import mapnik
+import mapnik
     
 register = template.Library()
 

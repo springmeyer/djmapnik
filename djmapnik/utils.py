@@ -5,10 +5,7 @@ import platform
 from subprocess import Popen, PIPE
 
 # mapnik
-try:
-    import mapnik2 as mapnik
-except:
-    import mapnik
+import mapnik
 
 def call(cmd,fail=False):
     try:
