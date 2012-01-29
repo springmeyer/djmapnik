@@ -3,10 +3,7 @@ from django.contrib.gis.gdal import SpatialReference
 #from django.contrib.gis.db.models.fields import GeometryField
 
 # mapnik
-try:
-    import mapnik2 as mapnik
-except:
-    import mapnik
+import mapnik
 
 # djmapnik
 from djmapnik import utils
