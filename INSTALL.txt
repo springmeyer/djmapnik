@@ -1,0 +1,10 @@
+Install
+-------
+
+Thanks for downloading djmapnik.
+
+I recommend simply putting the 'djmapnik' directory on your
+PYTHONPATH (the one with the __init__.py file inside) to play
+around with this code. There is a setup.py script but this is 
+alpha code at this point that will change, so no use installing
+globally.
