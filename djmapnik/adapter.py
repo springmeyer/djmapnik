@@ -42,13 +42,14 @@ def qs_to_map(qs,styles=[],srs='+init=epsg:900913',buffer_size=128):
 
 
 class LayerAdapter:
-    def __init__(self,queryset,name=None,styles=[],field_name=None,use_proj4_literal=False):
+    def __init__(self,queryset,name=None,styles=[],field_name=None,use_proj4_literal=False,persist_connection=True):
         self.qs = queryset
         assert hasattr(self.qs,'query'), '%s must be a queryset and have a .query attribute' % self.qs
         self.name = name
         self.styles = styles
         self.field_name = field_name
         self.use_proj4_literal = use_proj4_literal
+        self.persist_connection = persist_connection
         if self.field_name:
             self.geometry_field = self.qs.query.get_meta().get_field(field_name)
         else:
@@ -141,6 +142,7 @@ class PostgisLayer(LayerAdapter):
         params_['table'] = str(subquery)
         params_['geometry_field'] = str(self.geometry_field.name)
         params_['srid'] = int(self.geometry_field.srid)
+        params_['persist_connection'] = self.persist_connection
         ds = mapnik.PostGIS(**params_)
         ds.subquery = subquery
         return ds
